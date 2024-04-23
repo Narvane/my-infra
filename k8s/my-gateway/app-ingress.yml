@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-gateway-ingress
+spec:
+  rules:
+    - host: 192.168.1.173 #myroutine.sytes.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: my-gateway-service
+                port:
+                  number: 80

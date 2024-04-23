@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-gateway
+  labels:
+    app: my-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-gateway
+  template:
+    metadata:
+      labels:
+        app: my-gateway
+    spec:
+      containers:
+        - name: my-gateway
+          image: ghcr.io/narvane/my-gateway/my-gateway-image:v0.0.2
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
