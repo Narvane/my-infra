@@ -26,7 +26,7 @@ services:
     networks:
       - my-network
   my-gateway-service:
-    image: ghcr.io/narvane/my-gateway/my-gateway-image:v0.0.3
+    image: ghcr.io/narvane/my-gateway/my-gateway-image:v0.0.4
     container_name: my-gateway-service
     restart: always
     ports:
