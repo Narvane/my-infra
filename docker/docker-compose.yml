@@ -13,15 +13,45 @@ services:
       POSTGRES_DB: my-storage
     volumes:
       - my-storage-data:/var/lib/postgresql/data
+    networks:
+      - my-network
   mongodb:
     image: mongo
-    container_name: mongodb
+    container_name: mongo-db
     restart: always
     ports:
       - "27017:27017"
     volumes:
       - mongodb_data:/data/db
-
+    networks:
+      - my-network
+  my-gateway-service:
+    image: ghcr.io/narvane/my-gateway/my-gateway-image:v0.0.2
+    container_name: my-gateway-service
+    restart: always
+    ports:
+      - "80:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    networks:
+      - my-network
+  my-storage-service:
+    image: ghcr.io/narvane/my-storage/my-storage-image:v0.2.6
+    container_name: my-storage-service
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    networks:
+      - my-network
 volumes:
   my-storage-data:
   mongodb_data:
+networks:
+  my-network:
+    driver: bridge
