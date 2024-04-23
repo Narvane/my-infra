@@ -4,7 +4,7 @@ metadata:
   name: my-gateway-ingress
 spec:
   rules:
-    - host: myroutine.sytes.net
+    - host: http://my-routine.ddns.net/
       http:
         paths:
           - path: /
